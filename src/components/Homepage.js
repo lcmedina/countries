@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Card from "./CountryCard";
+import { Grid } from "@mui/material";
 
 
 const Homepage = () => {
@@ -16,16 +17,22 @@ const Homepage = () => {
     }, [])
     
     return (
-        <div>
-            <h1>List of Countries</h1>
+        <Grid container spacing={3} columns={{xs: 4, sm: 8, md: 12}}>
             {
                 countries.map((country, i) => {
-                    return (<div key={i}>
-                    <p>{country.name.common}</p>
-                    </div>)
+                    return (
+                    <Grid item xs={4} sm={4} md={3} key={i}>
+                        <Card 
+                            flag={country.flags.png}
+                            name={country.name.common}
+                            population={country.population}
+                            region={country.region}
+                            capital={country.capital}
+                        />
+                    </Grid>)
                 })
             }
-        </div>
+        </Grid>
      );
 }
  
