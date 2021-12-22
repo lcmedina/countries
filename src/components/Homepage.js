@@ -17,7 +17,7 @@ const Homepage = () => {
     }, [])
     
     return (
-        <Grid container spacing={3} columns={{xs: 4, sm: 8, md: 12}}>
+        <Grid container spacing={{xs: 2, sm: 3, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
             {
                 countries.map((country, i) => {
                     return (
