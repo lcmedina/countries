@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Card from "./CountryCard";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
+import TitleBar from "./TitleBar";
 
 
 const Homepage = () => {
@@ -17,22 +18,27 @@ const Homepage = () => {
     }, [])
     
     return (
-        <Grid container spacing={{xs: 2, sm: 3, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
-            {
-                countries.map((country, i) => {
-                    return (
-                    <Grid item xs={4} sm={4} md={3} key={i}>
-                        <Card 
-                            flag={country.flags.png}
-                            name={country.name.common}
-                            population={country.population}
-                            region={country.region}
-                            capital={country.capital}
-                        />
-                    </Grid>)
-                })
-            }
-        </Grid>
+        <>
+        <TitleBar/>
+        <Container>
+            <Grid container spacing={{xs: 2, sm: 3, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
+                {
+                    countries.map((country, i) => {
+                        return (
+                        <Grid item xs={4} sm={4} md={3} key={i}>
+                            <Card 
+                                flag={country.flags.png}
+                                name={country.name.common}
+                                population={country.population}
+                                region={country.region}
+                                capital={country.capital}
+                            />
+                        </Grid>)
+                    })
+                }
+            </Grid>
+        </Container>
+        </>
      );
 }
  

@@ -1,12 +1,18 @@
 import './App.css';
 import Homepage from './components/Homepage';
-import { Container } from "@mui/material";
+import DetailPage from "./components/Details";
+import { useRoutes } from "hookrouter";
+
+const routes = {
+  '/' : () => <Homepage/>,
+  '/details' : () => <DetailPage/>
+}
 
 function App() {
+  const routeResult = useRoutes(routes);
+    
   return (
-    <Container maxWidth="xl">
-      <Homepage/>
-    </Container>
+    routeResult
   );
 }
 
