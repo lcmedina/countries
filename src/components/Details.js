@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import TitleBar from "./TitleBar";
 
 const DetailPage = () => {
+
+    
     return ( 
         <>
         <TitleBar/>
