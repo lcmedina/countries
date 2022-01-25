@@ -1,32 +1,37 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Card from "./CountryCard";
 import { Container, Grid, TextField } from "@mui/material";
 import TitleBar from "./TitleBar";
+import useFetch from "./useFetch";
 
 
 const Homepage = () => {
-   const [countries, setCountries] = useState([]);
+//    const [countries, setCountries] = useState([]);
    const [search, setSearch] = useState("");
-   const [searchResults, setSearchResults] = useState([])
+//    const [searchResults, setSearchResults] = useState([])
 
-    useEffect(() => {
-        getCountries();
+//     useEffect(() => {
+//         getCountries();
 
-        async function getCountries() {
-            const response = await fetch("https://restcountries.com/v3.1/all");
-            const data = await response.json();
-            setCountries(data);
-        }
+//         async function getCountries() {
+//             const response = await fetch("https://restcountries.com/v3.1/all");
+//             const data = await response.json();
+//             setCountries(data);
+//         }
 
-    }, [])
+//     }, [])
 
     const handleChange = (e) => {
         setSearch(e.target.value);
         console.log(search)
     }
+
+const { data: countries, error } = useFetch('https://restcountries.com/v3.1/all');
     
     return (
         <>
+        {error && <div>{error}</div>}
+        {countries && (<>
         <TitleBar/>
         <Container>
         <TextField 
@@ -54,9 +59,8 @@ const Homepage = () => {
                     })
                 }
             </Grid>
-        </Container>
+        </Container></>)}
         </>
 );
-}
- 
+            }
 export default Homepage;
