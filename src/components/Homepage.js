@@ -1,36 +1,37 @@
-import { useState } from "react"
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Card from "./CountryCard";
 import { Container, Grid, TextField } from "@mui/material";
 import TitleBar from "./TitleBar";
-import useFetch from "./useFetch";
 
 
 const Homepage = () => {
-//    const [countries, setCountries] = useState([]);
+    const [countries, setCountries] = useState([]);
+    const [loading, setLoading] = useState(true)
    const [search, setSearch] = useState("");
 //    const [searchResults, setSearchResults] = useState([])
 
-//     useEffect(() => {
-//         getCountries();
+    useEffect(() => {
+        setLoading(true)
+        let controller = new AbortController()
+        axios.get("https://restcountries.com/v3.1/all", {signal: controller.signal})
+        .then(res => {
+            setLoading(false)
+            setCountries(res.data)
+        })
 
-//         async function getCountries() {
-//             const response = await fetch("https://restcountries.com/v3.1/all");
-//             const data = await response.json();
-//             setCountries(data);
-//         }
-
-//     }, [])
+        return () => controller.abort()
+    }, [])
 
     const handleChange = (e) => {
         setSearch(e.target.value);
         console.log(search)
     }
 
-const { data: countries, error } = useFetch('https://restcountries.com/v3.1/all');
+    if (loading) return "Loading..."
     
     return (
         <>
-        {error && <div>{error}</div>}
         {countries && (<>
         <TitleBar/>
         <Container>

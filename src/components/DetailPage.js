@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
 import TitleBar from "./TitleBar";
 import Details from "./Details";
-import useFetch from "./useFetch";
+import { useState } from "react";
+import axios from "axios";
 
 const DetailPage = () => {
     let { id } = useParams();
-    
-    const {data: details, error} = useFetch('https://restcountries.com/v3.1/name/' + id);
-    console.log(details)
+    const [details, setDetails] = useState()
+
+    axios.get(`https://restcountries.com/v3.1/name/${id}?fullText=true`)
+    .then(res => {
+        setDetails(res.data)
+    })
+
     return ( 
         <>
         <TitleBar/>
-        { error && <div>{ error }</div> }
         { details && <Details 
         name={details[0].name.common}
         flag={details[0].flags.svg}
@@ -20,7 +24,7 @@ const DetailPage = () => {
         region={details[0].region}
         subregion={details[0].subregion}
         domain={details[0].tld}
-         />}
+        currency={details[0].currencies.name} />}
         </>
      );
 }
