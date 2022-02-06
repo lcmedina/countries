@@ -1,8 +1,8 @@
-body {
+/* body {
   background-color: hsl(0, 0%, 98%);
-}
+} */
 .details-sm {
-  background-color: hsl(0, 0%, 100%);
+  /* background-color: hsl(0, 0%, 100%); */
   height: 300px;
   width: 250px;
   box-shadow: 1px 1px 1px hsl(0, 2%, 87%);
@@ -10,7 +10,7 @@ body {
 }
 .details-sm p, h3 {
   padding-left: 15px;
-  color: hsl(200, 15%, 8%);
+  /* color: hsl(200, 15%, 8%); */
 }
 
 .details-sm p {
