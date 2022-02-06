@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Card = (props) => {
 
     return (
-        <Link to={props.id}>
+        <Link to={props.id} style={{color: 'inherit', textDecoration: 'inherit'}}>
             <div className="details-sm" id={props.id}>
                <div className="img-div"><img src={props.flag} alt="Flag"/></div>
                 <h3>{props.name}</h3>
