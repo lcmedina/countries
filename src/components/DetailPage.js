@@ -4,6 +4,7 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 const DetailPage = () => {
     let { id } = useParams();
     const [details, setDetails] = useState()
@@ -22,7 +23,7 @@ const DetailPage = () => {
         name={details.name.common}
         flag={details.flags.svg}
         capital={details.capital}
-        population={details.population}
+        population={details.population.toLocaleString("en-US")}
         region={details.region}
         subregion={details.subregion}
         domain={details.tld}
