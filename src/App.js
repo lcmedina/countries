@@ -27,7 +27,7 @@ function App() {
     const darkTheme = useTheme()
     document.body.style.backgroundColor = darkTheme ? 'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)';
     const themeStyles = {
-    backgroundColor: darkTheme ?  'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 100%)',
+    backgroundColor: darkTheme ?  'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)',
     color: darkTheme ? 'hsl(0, 0%, 100%)' : ' hsl(200, 15%, 8%)'
 }
 
@@ -60,7 +60,7 @@ function App() {
                               id={country.name.common} 
                               flag={country.flags.png}
                               name={country.name.common}
-                              population={country.population}
+                              population={country.population.toLocaleString("en-US")}
                               region={country.region}
                               capital={country.capital}
                           />
