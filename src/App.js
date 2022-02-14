@@ -2,9 +2,11 @@ import './App.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "./components/CountryCard";
-import { Container, Grid, TextField, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Container, Grid, TextField, FormControl, InputLabel, MenuItem, Select, InputAdornment } from "@mui/material";
 import TitleBar from "./components/TitleBar";
 import {useTheme} from './Theme'
+import SearchIcon from '@mui/icons-material/Search';
+
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -28,15 +30,18 @@ function App() {
     document.body.style.backgroundColor = darkTheme ? 'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)';
     const themeStyles = {
     backgroundColor: darkTheme ?  'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)',
-    color: darkTheme ? 'hsl(0, 0%, 100%)' : ' hsl(200, 15%, 8%)'
+    color: darkTheme ? 'hsl(0, 0%, 100%)' : ' hsl(200, 15%, 8%)',
 }
 
-// filter dropdown menu
-  const [filteredCountries, setFilteredCountries] = useState([]);
+
 
   //changehandler
   const getByRegion = (event) => {
       axios.get(`https://restcountries.com/v3.1/region/${event.target.value}`)
+      .then(res => setCountries(res.data))
+  }
+  const searchCountry = (event) => {
+      axios.get(`https://restcountries.com/v3.1/name/${event.target.value}`)
       .then(res => setCountries(res.data))
   }
 
@@ -45,14 +50,29 @@ function App() {
       <>
       {countries && (<>
       <TitleBar/>
+      {/* search bar */}
+
+      <TextField 
+      onChange={searchCountry}
+      label="Search for a country..." 
+      InputProps={{
+          startAdornment: (
+              <InputAdornment position="start">
+                  <SearchIcon fontSize='small' color='inherit' style={themeStyles}/>
+              </InputAdornment>
+          )
+      }}
+      />
+
       {/* filter menu */}
-      <FormControl sx={{ m: 1, minWidth: 200 }} variant="standard" style={themeStyles}>
-        <InputLabel id="filter-label">Filter by Region</InputLabel>
+      <FormControl sx={{ m: 2, minWidth: 200 }} variant="outlined">
+        <InputLabel id="filter-label" style={themeStyles}>Filter by Region</InputLabel>
         <Select
           labelId="filter-label"
           id="filter-by-region"
-          value={countries}
+          value=''
           onChange={getByRegion}
+          variant="outlined"
         >
           <MenuItem value="Africa">Africa</MenuItem>
           <MenuItem value="Americas">Americas</MenuItem>
