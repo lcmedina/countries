@@ -4,6 +4,8 @@ import Details from "./Details";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+//import '../App.css'
+
 
 const DetailPage = () => {
     let { id } = useParams();
@@ -27,7 +29,7 @@ const DetailPage = () => {
         region={details.region}
         subregion={details.subregion}
         domain={details.tld}
-        currency={details.currencies.name} />}
+        borders={details.borders} />}
         </>
      );
 }
