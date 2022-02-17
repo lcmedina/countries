@@ -50,9 +50,10 @@ function App() {
       <>
       {countries && (<>
       <TitleBar/>
+      <Grid sx={{display: 'flex', justifyContent: 'space-between'}}>
       {/* search bar */}
-
       <TextField 
+      sx={{m: 2}}
       onChange={searchCountry}
       label="Search for a country..." 
       InputProps={{
@@ -63,7 +64,6 @@ function App() {
           )
       }}
       />
-
       {/* filter menu */}
       <FormControl sx={{ m: 2, minWidth: 200 }} variant="outlined">
         <InputLabel id="filter-label" style={themeStyles}>Filter by Region</InputLabel>
@@ -81,6 +81,7 @@ function App() {
           <MenuItem value="Oceania">Oceania</MenuItem>
         </Select>
       </FormControl>
+      </Grid>
       <Container style={themeStyles}>
           <Grid container spacing={{xs: 2, sm: 3, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
               {
