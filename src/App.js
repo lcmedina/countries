@@ -79,13 +79,25 @@ function App() {
       <Grid sx={{display: 'flex', justifyContent: 'space-between'}}>
       {/* search bar */}
       <TextField 
+      style={inputStyles}
       sx={{m: 2}}
       onChange={searchCountry}
-      label="Search for a country..." 
+      label="Search for a country..."
+      InputLabelProps={{
+          style: {
+            fontFamily: 'Nunito Sans',
+            color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)',
+            backgroundColor: darkTheme ?  'transparent' : 'hsl(0, 0%, 100%)'
+          }
+      }}
       InputProps={{
+          style: {
+              fontFamily: 'Nunito Sans',
+              color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)'
+              },
           startAdornment: (
               <InputAdornment position="start">
-                  <SearchIcon fontSize='small' color='inherit' style={themeStyles}/>
+                  <SearchIcon fontSize='small' color='inherit' style={inputStyles}/>
               </InputAdornment>
           )
       }}
