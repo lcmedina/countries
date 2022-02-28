@@ -26,6 +26,7 @@ const Details = ({ flag, name, population, region, subregion, capital, domain, b
         navigate('/');
     }
 
+
     return ( 
        <>
                <Button 

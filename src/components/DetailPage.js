@@ -9,12 +9,14 @@ import axios from "axios";
 
 const DetailPage = () => {
     let { id } = useParams();
-    const [details, setDetails] = useState()
+    const [details, setDetails] = useState();
+    const [borderCountries, setBorderCountries] = useState();
 
     useEffect(() => {
         axios.get(`https://restcountries.com/v3.1/name/${id}?fullText=true`)
         .then(res => {
             setDetails(res.data[0])
+            setBorderCountries(res.data[0].borders)
         })
     }, [id])
 
@@ -29,7 +31,7 @@ const DetailPage = () => {
         region={details.region}
         subregion={details.subregion}
         domain={details.tld}
-        borders={details.borders} />}
+         />}
         </>
      );
 }

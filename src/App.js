@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "./components/CountryCard";
 import { Container, Grid, TextField, FormControl, InputLabel, MenuItem, Select, InputAdornment } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TitleBar from "./components/TitleBar";
 import {useTheme} from './Theme'
 import SearchIcon from '@mui/icons-material/Search';
@@ -29,9 +30,34 @@ function App() {
     const darkTheme = useTheme()
     document.body.style.backgroundColor = darkTheme ? 'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)';
     const themeStyles = {
-    backgroundColor: darkTheme ?  'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)',
-    color: darkTheme ? 'hsl(0, 0%, 100%)' : ' hsl(200, 15%, 8%)',
-}
+        backgroundColor: darkTheme ?  'hsl(207, 26%, 17%)' : 'hsl(0, 0%, 98%)',
+        color: darkTheme ? 'hsl(0, 0%, 100%)' : ' hsl(200, 15%, 8%)',
+    }
+    const inputStyles = {
+        fontFamily: 'Nunito Sans',
+        color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)',
+        backgroundColor: darkTheme ?  'hsl(209, 23%, 22%)' : 'hsl(0, 0%, 100%)'
+    }
+    const listStyles = createTheme({
+        components: {
+            MuiList: {
+              styleOverrides: {
+                root: {
+                    backgroundColor: darkTheme ?  'hsl(209, 23%, 22%)' : 'hsl(0, 0%, 100%)',
+                    color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)',
+                },
+              }
+            },
+            MuiMenuItem: {
+                styleOverrides: {
+                    root: {
+                        fontFamily: 'Nunito Sans'
+                    }
+                }
+            }
+        }
+    });
+
 
 
 
@@ -65,14 +91,16 @@ function App() {
       }}
       />
       {/* filter menu */}
-      <FormControl sx={{ m: 2, minWidth: 200 }} variant="outlined">
-        <InputLabel id="filter-label" style={themeStyles}>Filter by Region</InputLabel>
+      <ThemeProvider theme={listStyles}>
+      <FormControl sx={{ m: 2, minWidth: 200, borderRadius: 1 }} variant="outlined">
+        <InputLabel id="filter-label" style={inputStyles}>Filter by Region</InputLabel>
         <Select
           labelId="filter-label"
           id="filter-by-region"
           value=''
           onChange={getByRegion}
           variant="outlined"
+          style={inputStyles}
         >
           <MenuItem value="Africa">Africa</MenuItem>
           <MenuItem value="Americas">Americas</MenuItem>
@@ -81,6 +109,7 @@ function App() {
           <MenuItem value="Oceania">Oceania</MenuItem>
         </Select>
       </FormControl>
+      </ThemeProvider>
       </Grid>
       <Container style={themeStyles}>
           <Grid container spacing={{xs: 2, sm: 3, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
