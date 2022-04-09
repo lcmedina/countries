@@ -11,7 +11,8 @@ import SearchIcon from '@mui/icons-material/Search';
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState();
 
 //Grabbing all countries to display
   useEffect(() => {
@@ -67,7 +68,8 @@ function App() {
       .then(res => setCountries(res.data))
   }
   const searchCountry = (event) => {
-      axios.get(`https://restcountries.com/v3.1/name/${event.target.value}`)
+     setSearch(event.target.value)
+      return axios.get(`https://restcountries.com/v3.1/name/${search}`)
       .then(res => setCountries(res.data))
   }
 
@@ -81,6 +83,12 @@ function App() {
       <TextField 
       style={inputStyles}
       sx={{m: 2}}
+      onKeyPress={(e) => {
+        if (e.key === 'Enter') {
+        axios.get(`https://restcountries.com/v3.1/name/${search}`)
+        .then(res => setCountries(res.data))
+      }
+      }}
       onChange={searchCountry}
       label="Search for a country..."
       InputLabelProps={{
@@ -93,7 +101,10 @@ function App() {
       InputProps={{
           style: {
               fontFamily: 'Nunito Sans',
-              color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)'
+              color: darkTheme ? 'hsl(0, 0%, 100%)' : 'hsl(0, 0%, 52%)',
+              '& .MuiTextField-root': {
+
+              }
               },
           startAdornment: (
               <InputAdornment position="start">
