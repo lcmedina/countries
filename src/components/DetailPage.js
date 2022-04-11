@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TitleBar from "./TitleBar";
 import Details from "./Details";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ const DetailPage = () => {
     let { id } = useParams();
     const [details, setDetails] = useState();
     const [borderCountries, setBorderCountries] = useState();
+    let navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`https://restcountries.com/v3.1/name/${id}?fullText=true`)
@@ -32,6 +33,7 @@ const DetailPage = () => {
         fontWeight: '600'
     }
     
+    
     return ( 
         <>
         <TitleBar/>
@@ -44,7 +46,14 @@ const DetailPage = () => {
         subregion={details.subregion}
         domain={details.tld}
         borders={borderCountries && borderCountries.map(item => {
-            return <Button style={buttonStyles} size="small" variant="contained">{item}</Button>
+            return <Button 
+            style={buttonStyles} 
+            size="small" 
+            variant="contained"
+            onClick={() => {
+                axios.get(`https://restcountries.com/v3.1/alpha/${item}`)
+                .then(res => navigate(`/${res.data[0].name.common}`))
+            }}>{item}</Button>
         })}
          />}
         </>
